@@ -1,0 +1,13 @@
+{
+  "appId": "com.herenotthere.app",
+  "appName": "Here Not There",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

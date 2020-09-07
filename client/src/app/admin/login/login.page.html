@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button id="home" [routerLink]="['/']">
+        <ion-icon size="large" slot="start" name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="">
+    <ion-card>
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="logForm()">
+          <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input type="text" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <button ion-button type="submit" [disabled]="!loginForm.valid">Submit</button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

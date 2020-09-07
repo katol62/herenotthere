@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Here Not There</string>
+    <string name="title_activity_main">Here Not There</string>
+    <string name="package_name">com.herenotthere.app</string>
+    <string name="custom_url_scheme">com.herenotthere.app</string>
+</resources>

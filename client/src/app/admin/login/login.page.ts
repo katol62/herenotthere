@@ -3,6 +3,7 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {IAuthRequest} from '../../shared/http-data';
 import {Router} from '@angular/router';
+import {notificationPath} from "../../shared/misc/constants";
 
 @Component({
   selector: 'app-login',
@@ -41,7 +42,7 @@ export class LoginPage implements OnInit {
   }
 
   private afterSignIn(): void {
-    this.router.navigate(['/notifications']);
+    this.router.navigate([notificationPath]);
   }
 
 }

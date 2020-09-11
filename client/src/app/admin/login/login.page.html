@@ -24,7 +24,9 @@
             <ion-label>Password</ion-label>
             <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
-          <button ion-button type="submit" [disabled]="!loginForm.valid">Submit</button>
+          <ion-item>
+            <ion-button size="small" color="primary" type="submit" [disabled]="!loginForm.valid">Submit</ion-button>
+          </ion-item>
         </form>
       </ion-card-content>
     </ion-card>

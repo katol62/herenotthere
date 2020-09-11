@@ -31,8 +31,11 @@ export class User {
         }
     }
 
-    public async create( user: IUser, parentId: number, cryptPwd: string): Promise<any> {
-        const query = 'INSERT INTO users (first_name, last_name, phone, email, password, role) SELECT ?, ?, ?, ?, ?, ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT * FROM users WHERE email=?) LIMIT 1';
+    public async create( user: IUser, cryptPwd: string): Promise<any> {
+        console.log('=== user ===');
+        console.log(user);
+        console.log(cryptPwd);
+        const query = 'INSERT INTO users (first_name, last_name, phone, email, password, role) SELECT ?, ?, ?, ?, ?, ? FROM DUAL WHERE NOT EXISTS (SELECT * FROM users WHERE email=?) LIMIT 1';
         const params = [
             user.first_name,
             user.last_name,
@@ -57,11 +60,12 @@ export class User {
         const phone = user.phone;
         const email = user.email;
         const password = user.password ? user.password : null;
-        let query = 'UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ?, password = ? WHERE id = ?';
-        let params = [name, last, email, phone, password, id];
+        const role = user.role;
+        let query = 'UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ?, password = ?, role = ? WHERE id = ?';
+        let params = [name, last, email, phone, password, role, id];
         if (password == null) {
-            query = 'UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE id = ?';
-            params = [name, last, email, phone, id];
+            query = 'UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ?, role = ? WHERE id = ?';
+            params = [name, last, email, phone, role, id];
         }
         try {
             const result = await this.asyncQuery(query, params);

@@ -8,6 +8,7 @@ export interface IBaseRequest {
 export interface IBaseResponse {
     success?: boolean;
     message?: string;
+    data?: any;
 }
 
 export const connection = mysql.createPool({

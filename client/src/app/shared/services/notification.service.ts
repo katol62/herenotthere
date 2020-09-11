@@ -25,7 +25,6 @@ export class NotificationService {
     constructor() { }
 
     public show(message: IMessageItem): void {
-        debugger;
         this.subject.next(message);
     }
 

@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="notifications"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Users</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="users && users.length">
+        <ion-item *ngFor="let user of users">
+            <ion-label>
+                <h2>{{user.first_name}} {{user.last_name}} {{hostId === user.id ? '(You)' : ''}}</h2>
+                <h3>{{user.role}}</h3>
+                <p>{{user.email}}</p>
+            </ion-label>
+            <div item-right>
+                <ion-button *ngIf="hostId !== user.id" (click)="delete(user);$event.stopPropagation();" color="danger">Delete</ion-button>
+                <ion-button (click)="edit(user);$event.stopPropagation();" color="primary">Edit</ion-button>
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="create()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

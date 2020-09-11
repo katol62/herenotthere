@@ -1,5 +1,7 @@
 import * as express from 'express';
 import {authRoutes} from "./ApiAuthRoute";
+import {checkJwt, hasRole} from "../middleware/MiddleWares";
+import {usersRoutes} from "./ApiUserRoute";
 
 class ApiRoutes {
 
@@ -25,6 +27,7 @@ class ApiRoutes {
             }
         );
         this.router.use('/auth', authRoutes.router);
+        this.router.use('/users', checkJwt, hasRole(['admin']), usersRoutes.router);
     }
 }
 

@@ -1,62 +1,49 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PopoverController} from '@ionic/angular';
-import {IMenuItems, PopoverMenuComponent} from '../../components/popover-menu/popover-menu.component';
-import {Router} from '@angular/router';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {EMenuAction, IMenuItems, PopoverMenuComponent} from '../../components/popover-menu/popover-menu.component';
 import {IAuthResponse} from '../../shared/http-data';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/services/auth.service';
+import {profilePath, usersPath} from "../../shared/misc/constants";
+import {BasePopoverComponent} from "../../components/base-popover/base-popover.component";
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.page.html',
-  styleUrls: ['./notification.page.scss'],
+    selector: 'app-notification',
+    templateUrl: './notification.page.html',
+    styleUrls: ['./notification.page.scss'],
 })
-export class NotificationPage implements OnInit, OnDestroy {
+export class NotificationPage extends BasePopoverComponent implements OnInit, OnDestroy {
 
-  public authInfo: IAuthResponse;
-  private authSubscriber: Subscription;
+    public authInfo: IAuthResponse;
+    private authSubscriber: Subscription;
 
-  private menu: IMenuItems[] = [
-    {title: 'Profile', path: '/profile'},
-    {title: 'Logout', action: 'logout'}
-  ];
+    protected menu: IMenuItems[] = [
+        {title: 'Profile', path: profilePath},
+        {title: 'Users', path: usersPath},
+        {title: 'Logout', action: EMenuAction.LOGOUT}
+    ];
 
-  constructor(private popoverController: PopoverController,
-              private authService: AuthService,
-              private router: Router) { }
+    constructor(protected injector: Injector,
+                private authService: AuthService) {
+        super(injector);
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.authSubscriber = this.authService.authInfo
+            .subscribe((info: IAuthResponse) => {
+                this.authInfo = info;
+            });
+    }
 
-  async openPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopoverMenuComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      componentProps: {menu: this.menu},
-      translucent: true
-    });
-
-    popover.onDidDismiss().then((data: any) => {
-      if (data && data.data) {
-        console.log(data.data);
-        if (data.data.path) {
-          this.router.navigate([data.data.path]);
-        } else if (data.data.action) {
-          if (data.data.action === 'logout') {
+    protected processAction(action: EMenuAction): void {
+        if (action === EMenuAction.LOGOUT) {
             this.authService.onLogout();
             this.router.navigate(['/']);
-          }
         }
-      }
-    });
+    }
 
-    return await popover.present();
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscriber.unsubscribe();
-    this.authSubscriber = null;
-  }
+    ngOnDestroy(): void {
+        this.authSubscriber.unsubscribe();
+        this.authSubscriber = null;
+    }
 
 }

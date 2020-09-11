@@ -92,5 +92,12 @@ export class AuthService extends RestService  {
         return decoded.role ? decoded.role : null;
     }
 
+    get userId(): number {
+        const token = this.token;
+        if (!token) { return null; }
+        const decoded: IToken = jwt_decode(token);
+        return decoded.id ? decoded.id : null;
+    }
+
 
 }

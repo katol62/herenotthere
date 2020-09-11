@@ -10,18 +10,20 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {MessageComponent} from "./components/message/message.component";
 import {PopoverMenuComponent} from "./components/popover-menu/popover-menu.component";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FcmComponent} from "./components/fcm/fcm.component";
+import {AuthInterceptor} from "./shared/guards/auth.interceptor";
 
 @NgModule({
-  declarations: [AppComponent, MessageComponent, PopoverMenuComponent, FcmComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, MessageComponent, PopoverMenuComponent, FcmComponent],
+    entryComponents: [],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

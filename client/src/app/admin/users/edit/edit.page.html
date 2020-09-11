@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="users"></ion-back-button>
+        </ion-buttons>
+        <ion-title>User{{validId ? ' : edit' : ' : create'}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <ion-item>
+                    <ion-label>First Name</ion-label>
+                    <ion-input type="text" formControlName="first_name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Last Name</ion-label>
+                    <ion-input type="text" formControlName="last_name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-input type="text" formControlName="email"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Phone</ion-label>
+                    <ion-input type="text" formControlName="phone"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Password</ion-label>
+                    <ion-input type="password" formControlName="newPassword"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Confirm Password</ion-label>
+                    <ion-input type="password" formControlName="confirmPassword"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-button color="primary" type="submit" [disabled]="!form.valid">Submit</ion-button>
+                </ion-item>
+            </form>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

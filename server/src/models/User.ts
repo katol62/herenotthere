@@ -24,8 +24,7 @@ export class User {
         const whereStr = where.length ? ' WHERE ' + where.join(' AND ') : '';
         const query = 'SELECT * from users' + whereStr;
         try {
-            const result = await this.asyncQuery(query);
-            return result;
+            return await this.asyncQuery(query);
         } catch (e) {
             throw (e);
         }
@@ -45,8 +44,7 @@ export class User {
             user.role,
             user.email];
         try {
-            const result = await this.asyncQuery(query, params);
-            return result;
+            return await this.asyncQuery(query, params);
         } catch (e) {
             throw (e);
         }
@@ -68,8 +66,7 @@ export class User {
             params = [name, last, email, phone, role, id];
         }
         try {
-            const result = await this.asyncQuery(query, params);
-            return result;
+            return await this.asyncQuery(query, params);
         } catch (e) {
             throw (e);
         }
@@ -79,8 +76,7 @@ export class User {
         const query = 'DELETE FROM users where id = ?';
         const params = [id];
         try {
-            const result = await this.asyncQuery(query, params);
-            return result;
+            return await this.asyncQuery(query, params);
         } catch (e) {
             throw (e);
         }
